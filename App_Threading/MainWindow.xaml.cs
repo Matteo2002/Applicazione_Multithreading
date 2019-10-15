@@ -24,5 +24,56 @@ namespace App_Threading
         {
             InitializeComponent();
         }
+        
+        private void Btn_Task_Click(object sender, RoutedEventArgs e)
+        {
+            //DoWork();
+            //Creazione di un thread
+            Task.Factory.StartNew(DoWork);
+
+        }
+
+        private void DoWork()
+        {
+            for (int i = 0; i <= 100000; i++)
+            {
+                for (int j = 0; j <= 100000; j++)
+                {
+                    
+                }
+            }
+
+            //AggiornaInterfaccia();
+            Dispatcher.Invoke(AggiornaInterfaccia);
+        }
+
+        private void AggiornaInterfaccia()
+        {
+            Lbl_Risultato.Content = "finito";
+        }
+
+
+
+        private void Btn_Conta_Click(object sender, RoutedEventArgs e)
+        {
+            //DoCount();
+            Task.Factory.StartNew(AggiornaInterfaccia);
+        }
+
+        private void DoCount()
+        {
+            for (int i = 0; i <= 1000; i++)
+            {
+                for (int j = 0; j <= 1000; j++)
+                {
+                    Dispatcher.Invoke(() => AggiornaInterfaccia(j));
+                }
+            }
+        }
+
+        private void AggiornaInterfaccia(int j)
+        {
+            Lbl_Conteggio.Content = j.ToString();
+        }
     }
 }
